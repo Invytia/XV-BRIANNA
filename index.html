@@ -63,7 +63,7 @@
             text-align: center;
         }
 
-        /* --- SOBRE (STYLING PREVIO) --- */
+        /* --- SOBRE --- */
         #envelope-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: radial-gradient(circle, #ffffff 0%, var(--rosa-pastel) 100%); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; transition: opacity 1.5s ease; }
         .envelope-wrapper { position: relative; width: 320px; height: 220px; cursor: pointer; animation: float 3s ease-in-out infinite; perspective: 1000px; }
         @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-15px); } }
@@ -168,6 +168,32 @@
         }
         .btn-small:hover { background: var(--azul-cielo); color: white; }
 
+        /* --- BOTÓN DE MÚSICA STICKY --- */
+        .music-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(5px);
+            border: 2px solid var(--dorado);
+            color: var(--dorado);
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 10001;
+            display: none; /* Se oculta hasta que se abre el sobre */
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+        }
+        .music-btn:hover {
+            transform: scale(1.1);
+            background: white;
+        }
+
         /* --- ITINERARIO --- */
         .timeline { position: relative; max-width: 800px; margin: 0 auto; }
         .timeline::before { content: ''; position: absolute; left: 50%; width: 1px; height: 100%; background: var(--dorado); opacity: 0.3; }
@@ -187,6 +213,14 @@
     </style>
 </head>
 <body>
+
+    <!-- AUDIO Y BOTÓN DE CONTROL -->
+    <audio id="bgMusic" loop>
+        <source src="assets/song.mp3" type="audio/mpeg">
+    </audio>
+    <button id="musicToggleBtn" class="music-btn" onclick="toggleMusic()">
+        <i class="fa-solid fa-pause"></i>
+    </button>
 
     <div id="envelope-screen">
         <div class="envelope-wrapper" id="envelope">
@@ -210,7 +244,6 @@
             </div>
         </section>
 
-        <!-- SECCIÓN CUENTA REGRESIVA NUEVA -->
         <section class="reveal">
             <h2>Faltan</h2>
             <div class="timer-container">
@@ -233,7 +266,6 @@
             </div>
         </section>
 
-        <!-- SECCIÓN UBICACIONES NUEVA -->
         <section class="reveal">
             <h2>Ubicaciones</h2>
             <div class="glass-card" style="padding: 40px; margin-bottom: 30px;">
@@ -289,7 +321,6 @@
             </div>
         </section>
 
-        <!-- SECCIÓN REGALOS Y VESTIMENTA NUEVA -->
         <section class="reveal">
             <div class="glass-card" style="padding: 40px; margin-bottom: 30px;">
                 <i class="fa-solid fa-user-tie" style="font-size: 2.5rem; color: var(--azul-oscuro); margin-bottom: 15px;"></i>
@@ -349,7 +380,7 @@
     </div>
 
     <script>
-        // 1. Lógica del Sobre
+        // 1. Lógica del Sobre y Autoplay de Música
         const envelope = document.getElementById('envelope');
         envelope.addEventListener('click', () => {
             envelope.classList.add('open-envelope');
@@ -359,10 +390,37 @@
                     document.getElementById('envelope-screen').style.display = 'none';
                     const main = document.getElementById('main-content');
                     main.style.display = 'block';
-                    setTimeout(() => { main.style.opacity = '1'; reveal(); createParticles(); }, 50);
+                    
+                    setTimeout(() => { 
+                        main.style.opacity = '1'; 
+                        reveal(); 
+                        createParticles(); 
+                        
+                        // Iniciar música y mostrar el botón
+                        const music = document.getElementById('bgMusic');
+                        const musicBtn = document.getElementById('musicToggleBtn');
+                        music.play().catch(e => console.log("El navegador bloqueó el auto-play"));
+                        musicBtn.style.display = 'flex';
+                    }, 50);
                 }, 1500);
             }, 1800);
         });
+
+        // Lógica para pausar/reanudar música
+        function toggleMusic() {
+            const music = document.getElementById('bgMusic');
+            const icon = document.querySelector('#musicToggleBtn i');
+            
+            if (music.paused) {
+                music.play();
+                icon.classList.remove('fa-play');
+                icon.classList.add('fa-pause');
+            } else {
+                music.pause();
+                icon.classList.remove('fa-pause');
+                icon.classList.add('fa-play');
+            }
+        }
 
         // 2. Lightbox
         function openLightbox(src) {
@@ -419,7 +477,7 @@
             }
         }
 
-        // 5. Función Copiar Dirección Nueva
+        // 5. Función Copiar Dirección
         function copiarDireccion(id) {
             const texto = document.getElementById(id).innerText;
             navigator.clipboard.writeText(texto).then(() => {
@@ -429,7 +487,7 @@
             });
         }
 
-        // 6. Cuenta Regresiva Nueva 
+        // 6. Cuenta Regresiva
         const targetDate = new Date("May 30, 2026 18:00:00").getTime();
         setInterval(() => {
             const now = new Date().getTime();
