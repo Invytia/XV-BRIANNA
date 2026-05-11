@@ -156,6 +156,18 @@
         }
         .btn-whatsapp { background: linear-gradient(135deg, #25D366, #128C7E); }
 
+        /* --- NUEVAS CLASES PARA AGREGADOS --- */
+        .timer-container { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 20px; }
+        .time-box { padding: 20px; min-width: 100px; border: 1px solid rgba(197, 160, 89, 0.2); text-align: center; }
+        .time-box span { display: block; font-family: var(--fuente-titulos); font-size: 2.8rem; color: var(--azul-oscuro); }
+
+        .btn-small {
+            display: inline-block; padding: 12px 25px; margin: 5px;
+            background: rgba(255, 255, 255, 0.6); color: var(--texto-oscuro);
+            border: 1px solid var(--azul-cielo); border-radius: 50px; text-decoration: none; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: 0.3s;
+        }
+        .btn-small:hover { background: var(--azul-cielo); color: white; }
+
         /* --- ITINERARIO --- */
         .timeline { position: relative; max-width: 800px; margin: 0 auto; }
         .timeline::before { content: ''; position: absolute; left: 50%; width: 1px; height: 100%; background: var(--dorado); opacity: 0.3; }
@@ -194,7 +206,18 @@
             <div class="glass-card" style="padding: 40px 20px; width: 90%; max-width: 600px;">
                 <div style="letter-spacing: 5px; color: var(--dorado); margin-bottom: 10px;">MIS XV AÑOS</div>
                 <h1>Brianna Shantal</h1>
-                <p style="font-weight: 500; margin-top: 15px;">05 DE JUNIO DE 2026</p>
+                <p style="font-weight: 500; margin-top: 15px; letter-spacing: 2px;">30 DE MAYO DE 2026</p>
+            </div>
+        </section>
+
+        <!-- SECCIÓN CUENTA REGRESIVA NUEVA -->
+        <section class="reveal">
+            <h2>Faltan</h2>
+            <div class="timer-container">
+                <div class="time-box glass-card"><span id="days">00</span><p>Días</p></div>
+                <div class="time-box glass-card"><span id="hours">00</span><p>Hrs</p></div>
+                <div class="time-box glass-card"><span id="minutes">00</span><p>Min</p></div>
+                <div class="time-box glass-card"><span id="seconds">00</span><p>Seg</p></div>
             </div>
         </section>
 
@@ -207,6 +230,30 @@
             <div class="glass-card" style="padding: 30px;">
                 <p style="color: var(--dorado); letter-spacing: 2px; font-size: 0.8rem;">MIS PADRINOS</p>
                 <p style="font-family: var(--fuente-titulos); font-size: 1.4rem;">Everardo Aranda Montes & Fabiola Sánchez Reyes</p>
+            </div>
+        </section>
+
+        <!-- SECCIÓN UBICACIONES NUEVA -->
+        <section class="reveal">
+            <h2>Ubicaciones</h2>
+            <div class="glass-card" style="padding: 40px; margin-bottom: 30px;">
+                <i class="fa-solid fa-church" style="font-size: 2.5rem; color: var(--azul-oscuro); margin-bottom: 20px;"></i>
+                <h3 style="font-family: var(--fuente-titulos); font-size: 1.8rem;">Ceremonia Religiosa</h3>
+                <p id="direccion-misa" style="margin: 15px 0; font-size: 0.95rem; color: var(--texto-claro); font-weight: 500;">Av Roma s/n, Andrade, 37020 León de los Aldama, Gto.</p>
+                <div style="margin-top: 25px;">
+                    <a href="https://share.google/kKJGvm4ExIlFh1aiV" target="_blank" class="btn-small"><i class="fa-solid fa-map-location-dot"></i> Abrir en Maps</a>
+                    <button onclick="copiarDireccion('direccion-misa')" class="btn-small"><i class="fa-solid fa-copy"></i> Copiar Dirección</button>
+                </div>
+            </div>
+            
+            <div class="glass-card" style="padding: 40px;">
+                <i class="fa-solid fa-champagne-glasses" style="font-size: 2.5rem; color: var(--dorado); margin-bottom: 20px;"></i>
+                <h3 style="font-family: var(--fuente-titulos); font-size: 1.8rem;">Recepción</h3>
+                <p id="direccion-salon" style="margin: 15px 0; font-size: 0.95rem; color: var(--texto-claro); font-weight: 500;">P.º de los Angeles y Medina 314, San Cayetano de Medina, 37235 León de los Aldama, Gto.</p>
+                <div style="margin-top: 25px;">
+                    <a href="https://maps.app.goo.gl/xZZRDRZDTGbY5gyJ8" target="_blank" class="btn-small"><i class="fa-solid fa-map-location-dot"></i> Abrir en Maps</a>
+                    <button onclick="copiarDireccion('direccion-salon')" class="btn-small"><i class="fa-solid fa-copy"></i> Copiar Dirección</button>
+                </div>
             </div>
         </section>
 
@@ -239,6 +286,20 @@
                     <img src="assets/gallery2.jpg" class="carousel-item" onclick="openLightbox(this.src)">
                     <img src="assets/gallery3.jpg" class="carousel-item" onclick="openLightbox(this.src)">
                 </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN REGALOS Y VESTIMENTA NUEVA -->
+        <section class="reveal">
+            <div class="glass-card" style="padding: 40px; margin-bottom: 30px;">
+                <i class="fa-solid fa-user-tie" style="font-size: 2.5rem; color: var(--azul-oscuro); margin-bottom: 15px;"></i>
+                <h3 style="font-family: var(--fuente-titulos); font-size: 1.8rem;">Código de Vestimenta</h3>
+                <p style="font-weight: 600; letter-spacing: 2px; margin-top: 15px;">FORMAL</p>
+            </div>
+            <div class="glass-card" style="padding: 40px;">
+                <i class="fa-solid fa-gift" style="font-size: 2.5rem; color: var(--dorado); margin-bottom: 15px;"></i>
+                <h3 style="font-family: var(--fuente-titulos); font-size: 1.8rem;">Sugerencia de Regalos</h3>
+                <p style="margin-top: 15px; line-height: 1.6;">Para nosotros, tu presencia es el mejor regalo. Si deseas regalarme algo, consideramos la dinámica de lluvia de sobres.</p>
             </div>
         </section>
 
@@ -339,13 +400,11 @@
 
             if(!name || !message) return alert("Llena todos los campos");
 
-            // Mostrar localmente de inmediato
             const div = document.createElement('div');
             div.style.cssText = "background: white; padding: 15px; border-radius: 10px; margin-bottom: 10px; border-left: 5px solid var(--azul-cielo)";
             div.innerHTML = `<strong>${name}</strong><br>${message}`;
             display.prepend(div);
 
-            // Enviar a Google Sheets
             try {
                 await fetch(APP_URL, {
                     method: 'POST',
@@ -360,7 +419,31 @@
             }
         }
 
-        // 5. Reveal & Particles
+        // 5. Función Copiar Dirección Nueva
+        function copiarDireccion(id) {
+            const texto = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(texto).then(() => {
+                alert("¡Dirección copiada exitosamente!");
+            }).catch(err => {
+                console.error('Error al copiar:', err);
+            });
+        }
+
+        // 6. Cuenta Regresiva Nueva 
+        const targetDate = new Date("May 30, 2026 18:00:00").getTime();
+        setInterval(() => {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance > 0) {
+                document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+                document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+                document.getElementById("minutes").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+                document.getElementById("seconds").innerText = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
+            }
+        }, 1000);
+
+        // 7. Reveal & Particles
         function reveal() {
             const revs = document.querySelectorAll(".reveal");
             revs.forEach(r => {
