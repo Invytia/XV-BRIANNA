@@ -12,6 +12,7 @@
             --blanco: #ffffff;
             --azul-cielo: #a8d5e5;
             --azul-oscuro: #7cb5cc;
+            --rosa-pastel: #fce4ec;
             --rosa-claro: #f4dce0;
             --dorado: #c5a059;
             --texto-oscuro: #2c3e50;
@@ -21,16 +22,12 @@
             --fuente-nombres: 'Great Vibes', cursive;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: var(--fuente-texto);
             color: var(--texto-oscuro);
-            background: linear-gradient(-45deg, #fdfbfb, #f4dce0, #e0f2fe, #ffffff);
+            background: linear-gradient(-45deg, #fdfbfb, var(--rosa-pastel), #e0f2fe, #ffffff);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
             overflow-x: hidden;
@@ -42,443 +39,138 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* --- PARTÍCULAS DE FONDO --- */
-        #particles-js {
-            position: fixed;
-            width: 100vw;
-            height: 100vh;
-            top: 0;
-            left: 0;
-            z-index: -1;
-            pointer-events: none;
-        }
+        #particles-js { position: fixed; width: 100vw; height: 100vh; top: 0; left: 0; z-index: -1; pointer-events: none; }
 
-        /* --- EFECTO CRISTAL (GLASSMORPHISM) --- */
         .glass-card {
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.7);
             border-radius: 20px;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08);
         }
 
-        /* --- ANIMACIÓN DE ENTRADA (EL SOBRE PREMIUM) --- */
-        #envelope-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
+        /* --- SECCIÓN HERO ACTUALIZADA --- */
+        .hero-container {
             height: 100vh;
-            background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(240,245,250,1) 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 1.5s ease;
-        }
-
-        .envelope-wrapper {
-            position: relative;
-            width: 320px;
-            height: 220px;
-            cursor: pointer;
-            animation: float 3s ease-in-out infinite;
-            perspective: 1000px;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
-        }
-
-        .envelope-body {
-            position: absolute;
-            bottom: 0;
             width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--azul-cielo), var(--azul-oscuro));
-            border-radius: 10px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-            overflow: visible;
-            z-index: 2;
+            background: linear-gradient(rgba(252, 228, 236, 0.7), rgba(252, 228, 236, 0.4)), url('assets/hero.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
         }
 
-        .envelope-body::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 0;
-            border-style: solid;
-            border-width: 110px 160px 110px 160px;
-            border-color: transparent transparent rgba(255,255,255,0.2) transparent;
-            z-index: 3;
-        }
+        /* --- SOBRE (STYLING PREVIO) --- */
+        #envelope-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: radial-gradient(circle, #ffffff 0%, var(--rosa-pastel) 100%); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; transition: opacity 1.5s ease; }
+        .envelope-wrapper { position: relative; width: 320px; height: 220px; cursor: pointer; animation: float 3s ease-in-out infinite; perspective: 1000px; }
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-15px); } }
+        .envelope-body { position: absolute; bottom: 0; width: 100%; height: 100%; background: linear-gradient(135deg, var(--azul-cielo), var(--azul-oscuro)); border-radius: 10px; z-index: 2; }
+        .envelope-flap { position: absolute; top: 0; left: 0; width: 100%; height: 120px; background: linear-gradient(to bottom, #bce0ef, #8ebdd2); clip-path: polygon(0 0, 50% 100%, 100% 0); transform-origin: top; transition: transform 0.6s ease-in-out; z-index: 4; }
+        .envelope-letter { position: absolute; bottom: 10px; left: 10px; width: 300px; height: 200px; background: var(--blanco); border-radius: 8px; display: flex; justify-content: center; align-items: center; z-index: 1; transition: transform 1s ease-in-out 0.6s; border: 1px solid var(--dorado); }
+        .envelope-letter h2 { font-family: var(--fuente-nombres); font-size: 2.8rem; color: var(--dorado); text-align: center; }
+        .wax-seal { position: absolute; top: 100px; left: 50%; transform: translateX(-50%); width: 55px; height: 55px; background: radial-gradient(circle, #e6c57a 0%, #c5a059 100%); border-radius: 50%; z-index: 5; display: flex; justify-content: center; align-items: center; font-family: var(--fuente-titulos); color: white; font-size: 1.6rem; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .open-envelope .wax-seal { opacity: 0; }
+        .open-envelope .envelope-flap { transform: rotateX(180deg); z-index: 0; }
+        .open-envelope .envelope-letter { transform: translateY(-130px); z-index: 3; }
 
-        .envelope-body::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0;
-            height: 0;
-            border-style: solid;
-            border-width: 110px 160px;
-            border-color: transparent rgba(255,255,255,0.1) transparent transparent;
-            z-index: 3;
-        }
+        /* --- CONTENIDO --- */
+        #main-content { display: none; opacity: 0; transition: opacity 2s ease-in; position: relative; z-index: 10; }
+        section { padding: 80px 20px; text-align: center; max-width: 1000px; margin: 0 auto; }
+        h1 { font-family: var(--fuente-nombres); font-size: 5.5rem; color: var(--texto-oscuro); }
+        h2 { font-family: var(--fuente-titulos); font-size: 2.5rem; margin-bottom: 30px; font-style: italic; }
 
-        .envelope-flap {
-            position: absolute;
-            top: 0;
-            left: 0;
+        /* --- CARRETEL (GALERÍA MOMENTOS) --- */
+        .carousel-container {
             width: 100%;
-            height: 120px;
-            background: linear-gradient(to bottom, #bce0ef, #8ebdd2);
-            clip-path: polygon(0 0, 50% 100%, 100% 0);
-            transform-origin: top;
-            transition: transform 0.6s ease-in-out, z-index 0s 0.3s;
-            z-index: 4;
-            border-radius: 10px 10px 0 0;
-        }
-
-        .envelope-letter {
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            width: 300px;
-            height: 200px;
-            background: var(--blanco);
-            border-radius: 8px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1;
-            transition: transform 1s ease-in-out 0.6s;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            border: 1px solid var(--dorado);
-        }
-
-        .envelope-letter h2 {
-            font-family: var(--fuente-nombres);
-            font-size: 2.8rem;
-            color: var(--dorado);
-            text-align: center;
-            line-height: 1;
-        }
-
-        .wax-seal {
-            position: absolute;
-            top: 100px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 50px;
-            height: 50px;
-            background: radial-gradient(circle, #e6c57a 0%, #c5a059 100%);
-            border-radius: 50%;
-            z-index: 5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: var(--fuente-titulos);
-            color: white;
-            font-size: 1.5rem;
-            font-weight: bold;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2), inset 0 0 5px rgba(255,255,255,0.5);
-            transition: opacity 0.3s ease;
-        }
-
-        .instruction-text {
-            margin-top: 50px;
-            font-size: 1rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--texto-claro);
-            animation: pulseText 2s infinite;
-        }
-
-        @keyframes pulseText {
-            0% { opacity: 0.4; }
-            50% { opacity: 1; }
-            100% { opacity: 0.4; }
-        }
-
-        /* Clases de apertura */
-        .open-envelope .wax-seal {
-            opacity: 0;
-        }
-        .open-envelope .envelope-flap {
-            transform: rotateX(180deg);
-            z-index: 0;
-        }
-        .open-envelope .envelope-letter {
-            transform: translateY(-120px);
-            z-index: 3;
-        }
-
-        /* --- CONTENIDO PRINCIPAL --- */
-        #main-content {
-            display: none;
-            opacity: 0;
-            transition: opacity 2s ease-in;
+            overflow: hidden;
             position: relative;
-            z-index: 10;
+            padding: 20px 0;
         }
-
-        section {
-            padding: 100px 20px;
-            text-align: center;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .hero {
-            min-height: 100vh;
+        .carousel-track {
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-
-        .subtitle {
-            font-size: 1.2rem;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            color: var(--dorado);
-            margin-bottom: 20px;
-            font-weight: 500;
-        }
-
-        h1 {
-            font-family: var(--fuente-nombres);
-            font-size: 6rem;
-            color: var(--texto-oscuro);
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 10px rgba(255,255,255,0.8);
-            line-height: 1.1;
-        }
-
-        h2 {
-            font-family: var(--fuente-titulos);
-            font-size: 2.5rem;
-            color: var(--texto-oscuro);
-            margin-bottom: 40px;
-            font-style: italic;
-        }
-
-        /* --- TARJETAS DE NOMBRES --- */
-        .parents-section .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .name-card {
-            padding: 40px 20px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .name-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(31, 38, 135, 0.15);
-        }
-
-        .name-card h3 {
-            font-family: var(--fuente-texto);
-            font-size: 0.9rem;
-            color: var(--dorado);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 20px;
-        }
-
-        .name-card p {
-            font-family: var(--fuente-titulos);
-            font-size: 1.5rem;
-            margin-bottom: 8px;
-            color: var(--texto-oscuro);
-        }
-
-        /* --- CUENTA REGRESIVA --- */
-        .countdown-section {
-            position: relative;
-        }
-
-        .timer-container {
-            display: flex;
-            justify-content: center;
             gap: 20px;
-            flex-wrap: wrap;
+            width: fit-content;
+            animation: scrollLoop 20s linear infinite;
+        }
+        .carousel-track:hover { animation-play-state: paused; }
+        .carousel-item {
+            width: 250px;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 15px;
+            cursor: pointer;
+            border: 5px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .carousel-item:hover { transform: scale(1.05); }
+
+        @keyframes scrollLoop {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-250px * 3 - 60px)); }
         }
 
-        .time-box {
-            padding: 25px 20px;
-            min-width: 110px;
-            border: 1px solid rgba(197, 160, 89, 0.3);
-        }
-
-        .time-box span {
-            display: block;
-            font-family: var(--fuente-titulos);
-            font-size: 3rem;
-            color: var(--azul-oscuro);
-        }
-
-        .time-box p {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-top: 10px;
-            color: var(--texto-claro);
-            font-weight: 600;
-        }
-
-        /* --- LOCACIONES Y BOTONES --- */
-        .card-container {
-            display: flex;
-            flex-wrap: wrap;
+        /* --- LIGHTBOX --- */
+        #lightbox {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: none;
             justify-content: center;
-            gap: 40px;
+            align-items: center;
+            z-index: 10000;
+        }
+        #lightbox img { max-width: 90%; max-height: 80%; border-radius: 10px; }
+        #lightbox .close-btn {
+            position: absolute;
+            top: 20px; right: 30px;
+            color: white; font-size: 40px; cursor: pointer;
         }
 
-        .location-card {
-            padding: 50px 30px;
+        /* --- FORMULARIOS --- */
+        input, select, textarea {
             width: 100%;
-            max-width: 450px;
-        }
-
-        .location-card i {
-            font-size: 2.5rem;
-            color: var(--dorado);
-            margin-bottom: 25px;
-            background: linear-gradient(135deg, var(--dorado), #e6c57a);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            border: 1px solid var(--rosa-pastel);
+            background: rgba(255,255,255,0.8);
+            font-family: var(--fuente-texto);
+            outline: none;
         }
 
         .btn {
             display: inline-block;
-            margin-top: 25px;
-            padding: 15px 40px;
+            padding: 16px 35px;
             background: linear-gradient(135deg, var(--azul-cielo), var(--azul-oscuro));
-            color: var(--blanco);
+            color: white;
             text-decoration: none;
             border-radius: 50px;
             font-weight: 600;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 20px rgba(124, 181, 204, 0.3);
             border: none;
+            cursor: pointer;
+            transition: 0.3s;
         }
+        .btn-whatsapp { background: linear-gradient(135deg, #25D366, #128C7E); }
 
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 25px rgba(124, 181, 204, 0.5);
-            background: linear-gradient(135deg, var(--azul-oscuro), var(--azul-cielo));
-        }
+        /* --- ITINERARIO --- */
+        .timeline { position: relative; max-width: 800px; margin: 0 auto; }
+        .timeline::before { content: ''; position: absolute; left: 50%; width: 1px; height: 100%; background: var(--dorado); opacity: 0.3; }
+        .timeline-item { display: flex; justify-content: space-between; margin-bottom: 40px; position: relative; }
+        .timeline-content { width: 45%; padding: 20px; }
+        .timeline-icon { position: absolute; left: 50%; transform: translateX(-50%); background: white; border: 1px solid var(--dorado); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 2; color: var(--dorado); }
 
-        /* --- ITINERARIO PREMIUM --- */
-        .timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 50px auto 0;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 1px;
-            height: 100%;
-            background: linear-gradient(to bottom, transparent, var(--dorado), transparent);
-        }
-
-        .timeline-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 50px;
-            position: relative;
-        }
-
-        .timeline-item:nth-child(even) {
-            flex-direction: row-reverse;
-        }
-
-        .timeline-content {
-            width: 45%;
-            padding: 30px;
-            text-align: center;
-        }
-
-        .timeline-icon {
-            width: 50px;
-            height: 50px;
-            background: var(--blanco);
-            border: 2px solid var(--dorado);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.2rem;
-            color: var(--dorado);
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 2;
-            box-shadow: 0 0 15px rgba(197, 160, 89, 0.3);
-        }
-
-        .time {
-            font-family: var(--fuente-titulos);
-            color: var(--azul-oscuro);
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
-
-        /* --- DETALLES --- */
-        .detail-box {
-            margin: 30px auto;
-            max-width: 600px;
-            padding: 40px;
-            border: 1px solid rgba(197, 160, 89, 0.5);
-        }
-
-        .detail-box i {
-            font-size: 3rem;
-            color: var(--rosa-claro);
-            text-shadow: 0 0 10px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-
-        /* --- ANIMACIONES SCROLL --- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 1s cubic-bezier(0.5, 0, 0, 1);
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .reveal { opacity: 0; transform: translateY(30px); transition: 1s all ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
         @media (max-width: 768px) {
-            h1 { font-size: 4rem; }
-            .timeline::before { left: 30px; }
-            .timeline-item { flex-direction: column !important; align-items: flex-end; }
-            .timeline-content { width: 85%; padding: 20px; text-align: left; }
-            .timeline-icon { left: 30px; }
-            .time-box { min-width: 45%; }
+            h1 { font-size: 3.5rem; }
+            .timeline::before { left: 20px; }
+            .timeline-content { width: 85%; margin-left: 50px; text-align: left; }
+            .timeline-icon { left: 20px; }
         }
     </style>
 </head>
@@ -486,259 +178,209 @@
 
     <div id="envelope-screen">
         <div class="envelope-wrapper" id="envelope">
-            <div class="envelope-letter">
-                <h2>Brianna<br>Shantal</h2>
-            </div>
+            <div class="envelope-letter"><h2>Brianna<br>Shantal</h2></div>
             <div class="envelope-flap"></div>
             <div class="envelope-body"></div>
             <div class="wax-seal">B</div>
         </div>
-        <div class="instruction-text">Toca para abrir</div>
+        <div style="margin-top: 40px; letter-spacing: 3px; text-transform: uppercase; font-size: 0.8rem;">Toca para abrir</div>
     </div>
 
     <div id="particles-js"></div>
 
     <div id="main-content">
         
-        <section class="hero reveal">
-            <div class="glass-card" style="padding: 60px 40px; text-align: center;">
-                <div class="subtitle">Mis XV Años</div>
+        <section class="hero-container reveal" style="padding:0;">
+            <div class="glass-card" style="padding: 40px 20px; width: 90%; max-width: 600px;">
+                <div style="letter-spacing: 5px; color: var(--dorado); margin-bottom: 10px;">MIS XV AÑOS</div>
                 <h1>Brianna Shantal</h1>
-                <p style="font-size: 1.2rem; margin-top: 30px; letter-spacing: 2px; text-transform: uppercase;">Viernes 5 de Junio del 2026</p>
+                <p style="font-weight: 500; margin-top: 15px;">05 DE JUNIO DE 2026</p>
             </div>
         </section>
 
-        <section class="parents-section reveal">
-            <h2>Con la bendición de Dios y en compañía de...</h2>
-            
-            <div class="grid-container">
-                <div class="name-card glass-card">
-                    <h3>Mis Padres</h3>
-                    <p>María de la Luz Sánchez Reyes</p>
-                    <p style="font-family: var(--fuente-texto); font-size: 1rem; color: var(--dorado); margin: 10px 0;">&</p>
-                    <p>Luis Angel Salas González</p>
-                </div>
-
-                <div class="name-card glass-card">
-                    <h3>Mis Padrinos</h3>
-                    <p>Everardo Aranda Montes</p>
-                    <p style="font-family: var(--fuente-texto); font-size: 1rem; color: var(--dorado); margin: 10px 0;">&</p>
-                    <p>Fabiola Sánchez Reyes</p>
-                </div>
+        <section class="reveal">
+            <h2>Con la bendición de mis padres</h2>
+            <div class="glass-card" style="padding: 30px; margin-bottom: 20px;">
+                <p style="color: var(--dorado); letter-spacing: 2px; font-size: 0.8rem;">MIS PADRES</p>
+                <p style="font-family: var(--fuente-titulos); font-size: 1.4rem;">María de la Luz Sánchez Reyes & Luis Angel Salas González</p>
+            </div>
+            <div class="glass-card" style="padding: 30px;">
+                <p style="color: var(--dorado); letter-spacing: 2px; font-size: 0.8rem;">MIS PADRINOS</p>
+                <p style="font-family: var(--fuente-titulos); font-size: 1.4rem;">Everardo Aranda Montes & Fabiola Sánchez Reyes</p>
             </div>
         </section>
 
-        <section class="countdown-section reveal">
-            <h2>El gran día se acerca</h2>
-            <div class="timer-container">
-                <div class="time-box glass-card">
-                    <span id="days">00</span>
-                    <p>Días</p>
+        <section class="reveal">
+            <h2>Itinerario</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-icon"><i class="fa-solid fa-church"></i></div>
+                    <div class="timeline-content glass-card"><h4>6:00 PM - Misa</h4></div>
                 </div>
-                <div class="time-box glass-card">
-                    <span id="hours">00</span>
-                    <p>Horas</p>
+                <div class="timeline-item">
+                    <div class="timeline-icon"><i class="fa-solid fa-champagne-glasses"></i></div>
+                    <div class="timeline-content glass-card"><h4>8:00 PM - Recepción</h4></div>
                 </div>
-                <div class="time-box glass-card">
-                    <span id="minutes">00</span>
-                    <p>Minutos</p>
-                </div>
-                <div class="time-box glass-card">
-                    <span id="seconds">00</span>
-                    <p>Segundos</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="locations-section reveal">
-            <h2>Dónde y Cuándo</h2>
-            
-            <div class="card-container">
-                <div class="location-card glass-card">
-                    <i class="fa-solid fa-church"></i>
-                    <h3 style="font-family: var(--fuente-titulos); font-size: 1.8rem; margin-bottom: 15px;">Ceremonia Religiosa</h3>
-                    <p style="font-size: 1.1rem; color: var(--azul-oscuro); font-weight: 600;">Parroquia San Judas Tadeo</p>
-                    <p style="margin-top: 15px; font-size: 1.2rem; font-weight: 300;">6:00 PM</p>
-                </div>
-
-                <div class="location-card glass-card">
-                    <i class="fa-solid fa-champagne-glasses"></i>
-                    <h3 style="font-family: var(--fuente-titulos); font-size: 1.8rem; margin-bottom: 15px;">Recepción</h3>
-                    <p style="font-size: 1.1rem; color: var(--azul-oscuro); font-weight: 600;">Quinta San Francisco (Salón 3)</p>
-                    <p style="margin-top: 15px; color: var(--texto-claro); font-size: 0.9rem; line-height: 1.6;">P.º de los Angeles y Medina 314, San Cayetano de Medina, 37235 León de los Aldama, Gto.</p>
-                    <a href="https://maps.app.goo.gl/aisGFJeL4ALg5sts6?g_st=iw" target="_blank" class="btn">
-                        Ver Ubicación <i class="fa-solid fa-arrow-right" style="font-size: 0.9rem; margin-left: 5px; color: white;"></i>
-                    </a>
+                <div class="timeline-item">
+                    <div class="timeline-icon"><i class="fa-solid fa-music"></i></div>
+                    <div class="timeline-content glass-card"><h4>9:30 PM - Vals</h4></div>
                 </div>
             </div>
         </section>
 
         <section class="reveal">
-            <h2>Itinerario del Evento</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-icon"><i class="fa-solid fa-church"></i></div>
-                    <div class="timeline-content glass-card">
-                        <div class="time">6:00 PM</div>
-                        <h4 style="font-weight: 500; letter-spacing: 1px;">Misa de Acción de Gracias</h4>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-icon"><i class="fa-solid fa-star"></i></div>
-                    <div class="timeline-content glass-card">
-                        <div class="time">8:00 PM</div>
-                        <h4 style="font-weight: 500; letter-spacing: 1px;">Entrada de Recepción</h4>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-icon"><i class="fa-solid fa-utensils"></i></div>
-                    <div class="timeline-content glass-card">
-                        <div class="time">9:00 PM</div>
-                        <h4 style="font-weight: 500; letter-spacing: 1px;">Cena</h4>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-icon"><i class="fa-solid fa-music"></i></div>
-                    <div class="timeline-content glass-card">
-                        <div class="time">1:30 AM</div>
-                        <h4 style="font-weight: 500; letter-spacing: 1px;">Fin de la Recepción</h4>
-                    </div>
+            <h2>Momentos</h2>
+            <div class="carousel-container">
+                <div class="carousel-track">
+                    <img src="assets/gallery1.jpg" class="carousel-item" onclick="openLightbox(this.src)">
+                    <img src="assets/gallery2.jpg" class="carousel-item" onclick="openLightbox(this.src)">
+                    <img src="assets/gallery3.jpg" class="carousel-item" onclick="openLightbox(this.src)">
+                    <img src="assets/gallery1.jpg" class="carousel-item" onclick="openLightbox(this.src)">
+                    <img src="assets/gallery2.jpg" class="carousel-item" onclick="openLightbox(this.src)">
+                    <img src="assets/gallery3.jpg" class="carousel-item" onclick="openLightbox(this.src)">
                 </div>
             </div>
         </section>
 
-        <section class="reveal" style="padding-bottom: 120px;">
-            <h2>Detalles Especiales</h2>
-            
-            <div class="detail-box glass-card">
-                <i class="fa-solid fa-user-tie" style="color: var(--azul-oscuro);"></i>
-                <h3 style="font-family: var(--fuente-titulos); font-size: 1.8rem;">Código de Vestimenta</h3>
-                <p style="margin-top: 15px; font-weight: 600; font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase;">Formal</p>
-            </div>
+        <section class="reveal">
+            <div class="glass-card" style="padding: 40px 20px;">
+                <h2>¿Me acompañas?</h2>
+                <p style="margin-bottom: 25px;">Confirma tu asistencia aquí mismo</p>
+                
+                <input type="text" id="guestName" placeholder="Tu nombre completo">
+                
+                <select id="guestCount">
+                    <option value="" disabled selected>Número de acompañantes</option>
+                    <option value="1">1 Persona</option>
+                    <option value="2">2 Personas</option>
+                    <option value="3">3 Personas</option>
+                    <option value="4">4 Personas</option>
+                </select>
 
-            <div class="detail-box glass-card">
-                <i class="fa-solid fa-envelope-open-text" style="color: var(--dorado);"></i>
-                <h3 style="font-family: var(--fuente-titulos); font-size: 1.8rem;">Sugerencia de Regalo</h3>
-                <p style="margin-top: 15px; line-height: 1.6;">El mejor regalo es tu presencia, pero si deseas tener un detalle conmigo, contaremos con:</p>
-                <p style="margin-top: 20px; font-weight: 600; font-size: 1.3rem; color: var(--dorado); text-transform: uppercase; letter-spacing: 2px;">Lluvia de Sobres</p>
+                <select id="attendance">
+                    <option value="Sí asistiré">Sí asistiré</option>
+                    <option value="No podré asistir">No podré asistir</option>
+                </select>
+
+                <button class="btn btn-whatsapp" onclick="sendWhatsApp()">
+                    <i class="fa-brands fa-whatsapp"></i> Confirmar por WhatsApp
+                </button>
+            </div>
+        </section>
+
+        <section class="reveal" style="padding-bottom: 100px;">
+            <h2>Muro de Deseos</h2>
+            <div class="glass-card" style="padding: 30px;">
+                <input type="text" id="wishName" placeholder="Tu nombre">
+                <textarea id="wishMessage" placeholder="Escribe tu mensaje para la festejada..."></textarea>
+                <button class="btn" onclick="publishWish()">Publicar Mensaje</button>
+                
+                <div id="messagesDisplay" style="margin-top: 30px; text-align: left;">
+                    </div>
             </div>
         </section>
 
     </div>
 
+    <div id="lightbox">
+        <span class="close-btn" onclick="closeLightbox()">&times;</span>
+        <img id="lightboxImg" src="">
+    </div>
+
     <script>
-        // 1. GENERADOR DE PARTÍCULAS SIMPLES (Sin librerías pesadas)
-        function createParticles() {
-            const container = document.getElementById('particles-js');
-            const particleCount = 40;
-
-            for (let i = 0; i < particleCount; i++) {
-                let particle = document.createElement('div');
-                
-                // Estilos aleatorios para cada partícula
-                let size = Math.random() * 5 + 2;
-                let posX = Math.random() * 100;
-                let delay = Math.random() * 5;
-                let duration = Math.random() * 10 + 10;
-                
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                particle.style.background = Math.random() > 0.5 ? 'rgba(197, 160, 89, 0.4)' : 'rgba(168, 213, 229, 0.4)';
-                particle.style.position = 'absolute';
-                particle.style.bottom = '-10px';
-                particle.style.left = `${posX}vw`;
-                particle.style.borderRadius = '50%';
-                particle.style.animation = `floatUp ${duration}s linear ${delay}s infinite`;
-                
-                container.appendChild(particle);
-            }
-            
-            // Añadir keyframes al documento para las partículas
-            const style = document.createElement('style');
-            style.innerHTML = `
-                @keyframes floatUp {
-                    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
-                    10% { opacity: 1; }
-                    90% { opacity: 1; }
-                    100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
-                }
-            `;
-            document.head.appendChild(style);
-        }
-
-        // 2. LÓGICA DEL SOBRE PREMIUM
+        // 1. Lógica del Sobre
         const envelope = document.getElementById('envelope');
-        const envelopeScreen = document.getElementById('envelope-screen');
-        const mainContent = document.getElementById('main-content');
-        const wrapper = document.querySelector('.envelope-wrapper');
-
         envelope.addEventListener('click', () => {
-            // Detener la animación de flotación al hacer clic
-            wrapper.style.animation = 'none';
-            
-            // Iniciar animación de apertura
             envelope.classList.add('open-envelope');
-            
-            // Secuencia de tiempos para la transición
             setTimeout(() => {
-                envelopeScreen.style.opacity = '0';
-                
+                document.getElementById('envelope-screen').style.opacity = '0';
                 setTimeout(() => {
-                    envelopeScreen.style.display = 'none';
-                    mainContent.style.display = 'block';
-                    
-                    setTimeout(() => {
-                        mainContent.style.opacity = '1';
-                        createParticles(); // Iniciar partículas al entrar
-                        reveal(); // Chequear animaciones de scroll
-                    }, 50);
-                }, 1500); // Esperar a que el desvanecimiento termine
-            }, 1800); // Tiempo para que salga la carta (1.8s)
+                    document.getElementById('envelope-screen').style.display = 'none';
+                    const main = document.getElementById('main-content');
+                    main.style.display = 'block';
+                    setTimeout(() => { main.style.opacity = '1'; reveal(); createParticles(); }, 50);
+                }, 1500);
+            }, 1800);
         });
 
-        // 3. CUENTA REGRESIVA
-        const countDownDate = new Date("Jun 5, 2026 18:00:00").getTime();
+        // 2. Lightbox
+        function openLightbox(src) {
+            document.getElementById('lightboxImg').src = src;
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
 
-        const timer = setInterval(function() {
-            const now = new Date().getTime();
-            const distance = countDownDate - now;
+        // 3. WhatsApp Send
+        function sendWhatsApp() {
+            const name = document.getElementById('guestName').value;
+            const count = document.getElementById('guestCount').value;
+            const attend = document.getElementById('attendance').value;
+            const phone = "526863068136";
 
-            if (distance < 0) {
-                clearInterval(timer);
-                document.getElementById("days").innerHTML = "00";
-                document.getElementById("hours").innerHTML = "00";
-                document.getElementById("minutes").innerHTML = "00";
-                document.getElementById("seconds").innerHTML = "00";
+            if(!name || !count) {
+                alert("Por favor completa tu nombre y número de acompañantes");
                 return;
             }
 
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            const text = `Hola Brianna! Soy ${name}. Confirmo que ${attend}. Seremos ${count} personas en total.`;
+            const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+            window.open(url, '_blank');
+        }
 
-            document.getElementById("days").innerHTML = days < 10 ? '0' + days : days;
-            document.getElementById("hours").innerHTML = hours < 10 ? '0' + hours : hours;
-            document.getElementById("minutes").innerHTML = minutes < 10 ? '0' + minutes : minutes;
-            document.getElementById("seconds").innerHTML = seconds < 10 ? '0' + seconds : seconds;
-        }, 1000);
+        // 4. Muro de Deseos (Apps Script)
+        const APP_URL = "TU_APPS_SCRIPT_URL_AQUI"; // Reemplaza esto con tu URL
 
-        // 4. ANIMACIONES AL SCROLLEAR (REVEAL)
-        function reveal() {
-            var reveals = document.querySelectorAll(".reveal");
+        async function publishWish() {
+            const name = document.getElementById('wishName').value;
+            const message = document.getElementById('wishMessage').value;
+            const display = document.getElementById('messagesDisplay');
 
-            for (var i = 0; i < reveals.length; i++) {
-                var windowHeight = window.innerHeight;
-                var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 100;
+            if(!name || !message) return alert("Llena todos los campos");
 
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add("active");
-                }
+            // Mostrar localmente de inmediato
+            const div = document.createElement('div');
+            div.style.cssText = "background: white; padding: 15px; border-radius: 10px; margin-bottom: 10px; border-left: 5px solid var(--azul-cielo)";
+            div.innerHTML = `<strong>${name}</strong><br>${message}`;
+            display.prepend(div);
+
+            // Enviar a Google Sheets
+            try {
+                await fetch(APP_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, message, date: new Date().toLocaleString() })
+                });
+                document.getElementById('wishName').value = "";
+                document.getElementById('wishMessage').value = "";
+            } catch (e) {
+                console.error("Error al enviar", e);
             }
         }
 
+        // 5. Reveal & Particles
+        function reveal() {
+            const revs = document.querySelectorAll(".reveal");
+            revs.forEach(r => {
+                if (r.getBoundingClientRect().top < window.innerHeight - 100) r.classList.add("active");
+            });
+        }
         window.addEventListener("scroll", reveal);
+
+        function createParticles() {
+            const container = document.getElementById('particles-js');
+            for (let i = 0; i < 30; i++) {
+                let p = document.createElement('div');
+                p.style.cssText = `position:absolute; width:4px; height:4px; background:rgba(197,160,89,0.3); border-radius:50%; bottom:-10px; left:${Math.random()*100}vw; animation: floatUp ${Math.random()*5+5}s linear infinite;`;
+                container.appendChild(p);
+            }
+        }
+
+        const s = document.createElement('style');
+        s.innerHTML = `@keyframes floatUp { 100% { transform: translateY(-100vh); opacity: 0; } }`;
+        document.head.appendChild(s);
     </script>
 </body>
 </html>
